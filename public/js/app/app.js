@@ -13,30 +13,47 @@ var AppRouter = Backbone.Router.extend({
     return this.bind('all', this._trackPageview);
   },
 
-  routes:{
-    "":"index"
-  },
-
   setup: function(callback) {
     callback();
   },
 
+  showView:function (selector, view) {
+    if (this.currentView) {
+        this.currentView.close();
+    }
+    $(selector).html(view.render().el);
+    this.currentView = view;
+    return view;
+  },
+
+  routes:{
+    "":"index",
+    "resources": "listResources",
+    "resources/new": "newResource",
+    "resources/:id": "showResource"
+  },
+
   index: function() {
+    this.newResource();
+  },
 
+  newResource: function() {
     var self = this;
-
     var resourceItemView = new ResourceItemView();
     self.showView('#container', resourceItemView);
   },
 
-  showView:function (selector, view) {
-      if (this.currentView) {
-          this.currentView.close();
-      }
-      $(selector).html(view.render().el);
-      this.currentView = view;
-      return view;
+  showResource: function(id) {
+    var self = this;
+
+    var resource = new Resource();
+    resource.id = id;
+    resource.fetch({success: function() {
+      var resourceItemView = new ResourceItemView(resource.toJSON());
+      self.showView('#container', resourceItemView);
+    }});
   }
+
 });
 
 $(function () {

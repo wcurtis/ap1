@@ -6,6 +6,16 @@ window.ResourceItemView = Backbone.View.extend({
 
   onSubmit: function(e) {
     console.log('submit');
+
+    var path = this.$('.resource-path').val();
+    var structure = JSON.parse(this.$('.resource-structure').val());
+
+    var resource = new Resource({
+      'path': path,
+      'structure': structure
+    });
+
+    resource.save();
   },
 
   initialize: function () {
