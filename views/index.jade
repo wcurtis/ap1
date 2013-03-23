@@ -1,8 +1,11 @@
 extends layout
 
 block headAfter
+  script(type="text/javascript", src="/js/app/views/resource.js")
+  script(type="text/javascript", src="/js/app/app.js")
 
 block content
   div ap1.io - The Rest as a Service platform
 
 block templates
+  include templates/resource
