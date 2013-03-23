@@ -7,7 +7,6 @@ html
     meta(name="description", content="ap1 - Spec your API, let us do the REST.")
     meta(name="viewport", content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0")
 
-    link(rel='stylesheet', href='/css/lib/background.css')
     link(rel='stylesheet', href='/css/lib/bootstrap.css')
     link(rel='stylesheet', href='/css/style.css')
 
@@ -18,6 +17,10 @@ html
     block headAfter
   body
     header
+      .navbar.navbar-inverse.navbar-fixed-top
+        .navbar-inner
+          .navbar-wrap
+            a.brand(href="#") ap1.io
     .container
       #container
         block content
