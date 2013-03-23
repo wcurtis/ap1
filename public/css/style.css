@@ -5,6 +5,18 @@
     margin-right: auto;
 }
 
+.resource-item {
+    width: 410px;
+}
+
 .resource-url {
     font-size: 24px;
+}
+
+.resource-item > textarea {
+    width: 100%;
+}
+
+.resource-item > button {
+    display: block;
 }
