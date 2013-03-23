@@ -1,6 +1,11 @@
 window.ResourceItemView = Backbone.View.extend({
 
   events: {
+    "click .btn-generate": "onSubmit"
+  },
+
+  onSubmit: function(e) {
+    console.log('submit');
   },
 
   initialize: function () {
