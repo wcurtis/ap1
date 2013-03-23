@@ -1,9 +1,13 @@
 
 script#resource-item-template(type="text/template")
   .resource-item
-    .resource-url 
-      span http://api.ap1.io/ 
-      span
-        input.resource-path(type="text", placeholder="resource")
-    textarea.resource-structure(rows=16)
+    .control-group.control-resource-path
+      .controls
+        .resource-url 
+          span http://api.ap1.io/ 
+          span
+            input.resource-path(type="text", placeholder="resource")
+    .control-group.control-resource-structure
+      .controls
+        textarea.resource-structure(rows=16)
     button.btn-generate.btn.btn-primary.btn-large.pull-right(type="button") Generate
