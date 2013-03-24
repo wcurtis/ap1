@@ -41,10 +41,13 @@ app.configure('development', function(){
 });
 
 var apiResource = require('./routes/api/resource'),
-  custom = require('./routes/api/custom');
+  custom = require('./routes/api/custom'),
+  test = require('./routes/api/test');
 
 // Setup routes
 app.get('/', routes.index);
+
+app.get('/api/test', test.list);
 
 app.get('/api/resources', apiResource.list);
 app.get('/api/resources/:id', apiResource.get);
