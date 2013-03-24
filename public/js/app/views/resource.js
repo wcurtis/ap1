@@ -10,20 +10,16 @@ window.ResourceItemView = Backbone.View.extend({
     this.template = _.template($('#resource-item-template').html());
 
     var editorView = new EditorView();
-    if (typeof this.model !== "undefined") {
+    if (this.hasModel()) {
       editorView.model = this.model;
     }
 
     this.editorView = editorView;
   },
 
-  hasModel: function() {
-    return (typeof this.model !== "undefined");
-  },
-
   render: function (eventName) {
 
-    var data = this.model ? this.model.toJSON() : {};
+    var data = this.hasModel() ? this.model.toJSON() : {};
     
     $(this.el).html(this.template(data));
 
@@ -62,7 +58,7 @@ window.ResourceItemView = Backbone.View.extend({
     }
 
     // Update or create new resource
-    var resource = (typeof this.model !== "undefined") ? this.model : new Resource();
+    var resource = this.hasModel() ? this.model : new Resource();
 
     resource.set('path', path);
     resource.set('structure', structure);

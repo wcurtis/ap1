@@ -7,6 +7,11 @@ Backbone.View.prototype.close = function () {
   this.unbind();
 };
 
+// Modifying prototypes like a boss (ok, just gettin' used to this js business)
+Backbone.View.prototype.hasModel = function() {
+  return (typeof this.model !== "undefined");
+};
+
 var AppRouter = Backbone.Router.extend({
 
   initialize:function () {
