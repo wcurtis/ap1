@@ -35,7 +35,7 @@ window.ResourceItemView = Backbone.View.extend({
   },
 
   onGenerate: function(e) {
-    console.log('generage');
+    $.get('api/resources/' + this.model.id + '/generate');
   },
 
   onSave: function(e) {
