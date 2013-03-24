@@ -51,6 +51,7 @@ app.get('/api/resources/:id', apiResource.get);
 app.post('/api/resources', apiResource.create);
 app.put('/api/resources/:id', apiResource.update);
 app.delete('/api/resources/:id', apiResource.delete);
+app.get('/api/resources/:id/generate', apiResource.generate);
 
 app.get('/custom/*', custom.list);
 

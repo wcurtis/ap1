@@ -1,6 +1,7 @@
 
 var mongoose = require('mongoose')
-  , Resource = mongoose.model('Resource');
+  , Resource = mongoose.model('Resource')
+  , Entity = mongoose.model('Entity');
 
 exports.list = function(req, res) {
 
@@ -11,7 +12,6 @@ exports.list = function(req, res) {
   }
 
   path = path[0];
-  console.log('Path: ' + path);
 
   return Resource.findOne({path:path}, function(err, doc) {
     if (err) { 
@@ -21,6 +21,17 @@ exports.list = function(req, res) {
     if (!doc) {
       return res.send(404);
     }
-    return res.send(doc);
+
+    // TODO: There's gotta be a way to do the mapping below in mongo
+    Entity.find({'_resourceId':doc._id})
+    .exec(function(err, entities) {
+
+      // Map the data field to be the actual entity
+      var result = _.map(entities, function(entity) {
+        return entity.data;
+      });
+
+      return res.send(result);
+    });
   });
 };
