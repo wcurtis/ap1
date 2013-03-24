@@ -12,7 +12,6 @@ exports.list = function(req, res) {
   }
 
   path = path[0];
-  console.log('Path: ' + path);
 
   return Resource.findOne({path:path}, function(err, doc) {
     if (err) { 
@@ -23,8 +22,16 @@ exports.list = function(req, res) {
       return res.send(404);
     }
 
-    Entity.find({'_resourceId':doc._id}, function(err, docs) {
-      return res.send(docs);
+    // TODO: There's gotta be a way to do the mapping below in mongo
+    Entity.find({'_resourceId':doc._id})
+    .exec(function(err, entities) {
+
+      // Map the data field to be the actual entity
+      var result = _.map(entities, function(entity) {
+        return entity.data;
+      });
+
+      return res.send(result);
     });
   });
 };
