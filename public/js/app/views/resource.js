@@ -27,8 +27,7 @@ window.ResourceItemView = Backbone.View.extend({
     var structure = this.$('.resource-structure').val();
 
     // Validate path
-    if (!path) {
-      console.log(path);
+    if (typeof path === "undefined" || path.length === 0) {
       this.$('.control-resource-path').addClass('error');
       return;
     }
@@ -41,10 +40,11 @@ window.ResourceItemView = Backbone.View.extend({
       return;
     }
 
-    var resource = new Resource({
-      'path': path,
-      'structure': structure
-    });
+    // Update or create new resource
+    var resource = (typeof this.model !== "undefined") ? this.model : new Resource();
+
+    resource.set('path', path);
+    resource.set('structure', structure);
 
     resource.save({}, { 
       success: function() {
