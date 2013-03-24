@@ -13,7 +13,8 @@
     "mongodb":    "1.1.x",
     "mongoose":   "3.5.x",
     "clah":       "1.2.x",
-    "Faker":      "0.5.x"
+    "Faker":      "0.5.x",
+    "js-beautify":"0.4.x"
   },
   "engines": {
     "node":       "0.8.x",
