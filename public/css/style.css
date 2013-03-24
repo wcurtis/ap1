@@ -13,10 +13,10 @@
     font-size: 24px;
 }
 
-.resource-item > textarea {
+.resource-item textarea {
     width: 100%;
 }
 
-.resource-item > button {
+.resource-item button {
     display: block;
 }

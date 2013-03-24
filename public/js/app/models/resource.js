@@ -12,8 +12,7 @@ window.Resource = Backbone.Model.extend({
   }
 });
 
-// Team collection
 window.ResourceCollection = Backbone.Collection.extend({
-  model: Team,
+  model: Resource,
   url: '/api/resource'
 });
