@@ -14,7 +14,6 @@ window.ResourceItemView = Backbone.View.extend({
     }
 
     this.editorView = editorView;
-    window.editorView = editorView;
   },
 
   render: function (eventName) {
@@ -33,10 +32,8 @@ window.ResourceItemView = Backbone.View.extend({
 
   onSubmit: function(e) {
 
-    console.log('submit');
-
     var path = this.$('.resource-path').val();
-    window.structure = this.editorView.getValue();
+    var structure = this.editorView.getValue();
 
     // Validate path
     if (typeof path === "undefined" || path.length === 0) {

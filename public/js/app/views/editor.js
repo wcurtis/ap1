@@ -1,6 +1,6 @@
 window.EditorView = Backbone.View.extend({
 
-  className: "resource-code-wrapper",
+  className: "editor",
 
   events: {
   },
