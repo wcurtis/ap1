@@ -8,6 +8,4 @@ script#resource-item-template(type="text/template")
           span
             input.resource-path(type="text", placeholder="resource")
     .resource-code-wrapper
-      #resource-code.resource-structure.
-        <% print((typeof structure !== "undefined") ? JSON.stringify(structure) : "") %>
     button.btn-generate.btn.btn-primary.btn-large.pull-right(type="button") Generate

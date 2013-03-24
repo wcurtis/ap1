@@ -7,6 +7,16 @@ window.ResourceItemView = Backbone.View.extend({
 
   initialize: function () {
     this.template = _.template($('#resource-item-template').html());
+
+    // TODO: Propagate model through if avail
+    
+    var editorView = new EditorView();
+    if (typeof this.model !== "undefined") {
+      editorView.model = this.model;
+    }
+
+    this.editorView = editorView;
+    window.editorView = editorView;
   },
 
   render: function (eventName) {
@@ -15,6 +25,8 @@ window.ResourceItemView = Backbone.View.extend({
     
     $(this.el).html(this.template(data));
 
+    this.$('.resource-code-wrapper').html(this.editorView.render().el);
+
     if (typeof data !== "undefined") {
       this.$('.resource-path').val(data.path);
     }
@@ -22,23 +34,15 @@ window.ResourceItemView = Backbone.View.extend({
   },
 
   prettify: function() {
-    var editor = ace.edit("resource-code");
-    editor.setTheme("ace/theme/monokai");
-    editor.getSession().setMode("ace/mode/json");
-    editor.renderer.setShowGutter(true);
-    editor.getSession().setTabSize(2);
-    editor.getSession().setUseSoftTabs(true);
-
-    var resource = (typeof this.model !== "undefined") ? this.model : new Resource();
-    editor.setValue(JSON.stringify(resource.get('structure'), null, 2));
-
-    this.editor = editor;
+    this.editorView.prettify();
   },
 
   onSubmit: function(e) {
 
+    console.log('submit');
+
     var path = this.$('.resource-path').val();
-    window.structure = this.editor.getValue();
+    window.structure = this.editorView.getValue();
 
     // Validate path
     if (typeof path === "undefined" || path.length === 0) {
