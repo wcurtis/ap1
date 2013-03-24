@@ -21,6 +21,14 @@ window.ResourceItemView = Backbone.View.extend({
     return this;
   },
 
+  prettify: function() {
+    CodeMirror.fromTextArea(document.getElementById("resource-code"), {
+        lineNumbers: true,
+        matchBrackets: true,
+        continueComments: "Enter"
+    });
+  },
+
   onSubmit: function(e) {
 
     var path = this.$('.resource-path').val();
