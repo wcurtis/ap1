@@ -41,6 +41,7 @@ var AppRouter = Backbone.Router.extend({
     var self = this;
     var resourceItemView = new ResourceItemView();
     self.showView('#container', resourceItemView);
+    resourceItemView.prettify();
   },
 
   showResource: function(id) {
@@ -52,6 +53,7 @@ var AppRouter = Backbone.Router.extend({
     resource.fetch({success: function() {
       var resourceItemView = new ResourceItemView({model: resource});
       self.showView('#container', resourceItemView);
+      resourceItemView.prettify();
     }});
   }
 

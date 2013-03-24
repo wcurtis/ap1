@@ -20,3 +20,13 @@
 .resource-item button {
     display: block;
 }
+
+#resource-code, 
+.resource-code-wrapper { 
+    width: 500px;
+    height: 200px;
+}
+
+.btn-generate {
+    margin-top: 20px;
+}

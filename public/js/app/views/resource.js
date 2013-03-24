@@ -21,10 +21,24 @@ window.ResourceItemView = Backbone.View.extend({
     return this;
   },
 
+  prettify: function() {
+    var editor = ace.edit("resource-code");
+    editor.setTheme("ace/theme/monokai");
+    editor.getSession().setMode("ace/mode/json");
+    editor.renderer.setShowGutter(true);
+    editor.getSession().setTabSize(2);
+    editor.getSession().setUseSoftTabs(true);
+
+    var resource = (typeof this.model !== "undefined") ? this.model : new Resource();
+    editor.setValue(JSON.stringify(resource.get('structure'), null, 2));
+
+    this.editor = editor;
+  },
+
   onSubmit: function(e) {
 
     var path = this.$('.resource-path').val();
-    var structure = this.$('.resource-structure').val();
+    window.structure = this.editor.getValue();
 
     // Validate path
     if (typeof path === "undefined" || path.length === 0) {
