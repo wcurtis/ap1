@@ -22,17 +22,18 @@ window.ResourceItemView = Backbone.View.extend({
   },
 
   prettify: function() {
-    CodeMirror.fromTextArea(document.getElementById("resource-code"), {
-        lineNumbers: true,
+    this.cm = CodeMirror.fromTextArea(document.getElementById("resource-code"), {
+        lineNumbers: false,
         matchBrackets: true,
-        continueComments: "Enter"
+        continueComments: "Enter",
+        tabSize: 2,
     });
   },
 
   onSubmit: function(e) {
 
     var path = this.$('.resource-path').val();
-    var structure = this.$('.resource-structure').val();
+    var structure = this.cm.getValue();
 
     // Validate path
     if (typeof path === "undefined" || path.length === 0) {
