@@ -5,14 +5,14 @@ window.Resource = Backbone.Model.extend({
 
   urlRoot: function(){
     if (true || this.isNew()){
-      return "/api/resource";
+      return "/api/resources";
     } else {
-      return "/api/resource" + this.id;
+      return "/api/resources" + this.id;
     }
   }
 });
 
 window.ResourceCollection = Backbone.Collection.extend({
   model: Resource,
-  url: '/api/resource'
+  url: '/api/resources'
 });

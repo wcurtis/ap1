@@ -46,11 +46,11 @@ var apiResource = require('./routes/api/resource'),
 // Setup routes
 app.get('/', routes.index);
 
-app.get('/api/resource', apiResource.list);
-app.get('/api/resource/:id', apiResource.get);
-app.post('/api/resource', apiResource.create);
-app.put('/api/resource/:id', apiResource.update);
-app.delete('/api/resource/:id', apiResource.delete);
+app.get('/api/resources', apiResource.list);
+app.get('/api/resources/:id', apiResource.get);
+app.post('/api/resources', apiResource.create);
+app.put('/api/resources/:id', apiResource.update);
+app.delete('/api/resources/:id', apiResource.delete);
 
 app.get('/custom/*', custom.list);
 
