@@ -1,6 +1,7 @@
 
 var mongoose = require('mongoose')
-  , Resource = mongoose.model('Resource');
+  , Resource = mongoose.model('Resource')
+  , Entity = mongoose.model('Entity');
 
 exports.list = function(req, res) {
 
@@ -21,6 +22,9 @@ exports.list = function(req, res) {
     if (!doc) {
       return res.send(404);
     }
-    return res.send(doc);
+
+    Entity.find({'_resourceId':doc._id}, function(err, docs) {
+      return res.send(docs);
+    });
   });
 };
