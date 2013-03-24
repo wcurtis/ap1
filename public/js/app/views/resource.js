@@ -8,8 +8,6 @@ window.ResourceItemView = Backbone.View.extend({
   initialize: function () {
     this.template = _.template($('#resource-item-template').html());
 
-    // TODO: Propagate model through if avail
-    
     var editorView = new EditorView();
     if (typeof this.model !== "undefined") {
       editorView.model = this.model;
@@ -31,10 +29,6 @@ window.ResourceItemView = Backbone.View.extend({
       this.$('.resource-path').val(data.path);
     }
     return this;
-  },
-
-  prettify: function() {
-    this.editorView.prettify();
   },
 
   onSubmit: function(e) {

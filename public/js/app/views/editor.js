@@ -9,12 +9,7 @@ window.EditorView = Backbone.View.extend({
   },
 
   render: function (eventName) {
-
-    return this;
-  },
-
-  prettify: function() {
-
+    
     var editor = ace.edit(this.el);
     editor.setTheme("ace/theme/monokai");
     editor.getSession().setMode("ace/mode/json");
@@ -27,6 +22,7 @@ window.EditorView = Backbone.View.extend({
 
     this.editor = editor;
     window.editor = editor;
+    return this;
   },
 
   getValue: function() {
