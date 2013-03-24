@@ -55,3 +55,16 @@ exports.delete = function(req, res) {
     });
   });
 };
+
+exports.generate = function(req, res) {
+  return Resource.findById(req.params.id, function(err, doc) {
+    if (err) { 
+      return res.send(500, err.message); 
+    }
+
+    doc.generate(function(entity) {
+      res.send(entity);
+    });
+
+  });
+};

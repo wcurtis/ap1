@@ -7,4 +7,11 @@ var ResourceSchema = new Schema({
     structure: Schema.Types.Mixed,
 });
 
+ResourceSchema.methods.generate = function (callback) {
+
+  console.log('generate ' + this._id);
+  callback(this);
+
+};
+
 mongoose.model('Resource', ResourceSchema);
