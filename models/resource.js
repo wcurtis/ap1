@@ -1,4 +1,6 @@
 
+var Faker = require('Faker');
+
 var mongoose = require('mongoose')
   , Schema = mongoose.Schema
   , Entity = mongoose.model('Entity');
@@ -26,9 +28,9 @@ ResourceSchema.methods.generate = function (callback) {
     var type = val.type;
 
     if (type == 'name') {
-      entityData[key] = 'Wayne Rooney';
+      entityData[key] = Faker.Name.findName();
     } else if (type == 'email') {
-      entityData[key] = 'wrooney@example.com';
+      entityData[key] = Faker.Internet.email();
     }
   });
 
