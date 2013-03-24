@@ -11,7 +11,8 @@
     "underscore": "1.4.x",
     "jsdom": "0.3.x",
     "mongodb" : "1.1.x",
-    "mongoose" : "3.5.x"
+    "mongoose" : "3.5.x",
+    "clah" : "1.2.x"
   },
   "engines": {
     "node": "0.8.x",
