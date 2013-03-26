@@ -1,33 +1,5 @@
 
 /**
- * This is an example object for resource.structure which defines how the entity should be built.
- * 
- * Eg. http://ap1.io/customer
- */ 
-{
-  "name": {
-    "type": "fullname"  // 'type' defines what kind of random value gets generated here. There are many.
-  },
-  "email": {
-    "type": "email"
-  },
-  "address": {
-    "type" : "address"  // The 'address' type actually creates a random address object with many other fields like city, state, etc
-  },
-  "phone": [
-    {
-      "type": "phone",
-      "count": 2        // When within an array, this populates the phone field with two numbers
-    }
-  ],
-  "created_at": {
-    "type": "timestamp",
-    "min": "2000-01-01",  // Generate timestamp between min and max dates
-    "max": "2013-01-01"   // Ommit max for present day
-  }
-}
-
-/**
  * Shopify customer example
  * 
  * {
@@ -185,7 +157,7 @@
     "id": {
       "type": "id"                  // This may reference an order id in the future
     },
-    "last_name" {
+    "last_name": {
       "type": "=this.last_name"
     },
     "phone": {
@@ -207,7 +179,7 @@
       "type": "null"                // TODO: find out options for this
     },
     "default": {
-      "type": "boolean"             // TODO: this should only be true for one in the parent array.. need a way to specify this
+      "type": "boolean",             // TODO: this should only be true for one in the parent array.. need a way to specify this
       "arrayOptions": {             // TODO: here's an idea for solvig the above problem of only one 'true' value
                                     // TODO: Figure out how this is gonna work
       }
