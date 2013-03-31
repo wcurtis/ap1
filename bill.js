@@ -238,13 +238,26 @@ var testBlueprint = {
           },
           "count": 2
         }
+      },
+      "object": {
+        "type": "object",
+        "options": {
+          "structure": {
+            "name": {
+              "type": "fullName"
+            },
+            "email": {
+              "type": "email"
+            }
+          }
+        }
       }
     }
   }
 };
   
 var factory = new BlueprintFactory();
-var obj = factory.create(testBlueprint);
+var blueprint = factory.create(testBlueprint);
 
-obj.print();
+blueprint.print();
 
