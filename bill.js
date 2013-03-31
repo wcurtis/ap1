@@ -46,11 +46,15 @@ var Blueprint = Class.extend({
   },
 
   print: function() {
-    console.log(this.generate());
+    console.log(JSON.stringify(this.generate(), null, 2));
   }
 
 });
 
+/**
+ * Generates an object with sub blueprints as defined
+ * by the 'structure' field in options
+ */
 var ObjectBlueprint = Blueprint.extend({
 
   init: function(options) {
@@ -85,6 +89,9 @@ var StringBlueprint = Blueprint.extend({
 
 });
 
+/**
+ * Generates a random full name
+ */
 var FullNameBlueprint = StringBlueprint.extend({
 
   generate: function() {
