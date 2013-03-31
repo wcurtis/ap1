@@ -17,6 +17,8 @@ var BlueprintFactory = Class.extend({
     switch(type) {
       case 'object':
         return new ObjectBlueprint(options);
+      case 'array':
+        return new ArrayBlueprint(options);
       case 'string':
         return new StringBlueprint(options);
       case 'number':
@@ -86,6 +88,47 @@ var ObjectBlueprint = Blueprint.extend({
 });
 
 /**
+ * Generates an array of elements based on the child blueprint
+ * 
+ * options
+ * {
+ *   "child": blueprint,  // A blueprint definition (required)
+ *   "count": 2             // Number of elements in the array
+ * }
+ */
+var ArrayBlueprint = Blueprint.extend({
+
+  init: function(options) {
+    this._super(options);
+
+    if (_.isUndefined(this.options) || _.isUndefined(this.options.child)) {
+      throw new TypeError("ObjectBlueprint requires the field 'child'");
+    }
+
+    this.child = this.options.child;
+  },
+
+  generate: function() {
+
+    var count = (_.isUndefined(this.options) || _.isUndefined(this.options.count)) ? 3 : this.options.count;
+    var child = this.child;
+
+    var factory = new BlueprintFactory();
+    var result = [];
+
+    var i = 0;
+    while (i < count) {
+
+      var blueprint = factory.create(child);
+      result.push(blueprint.generate());
+      i++;
+    }
+
+    return result;
+  }
+});
+
+/**
  * Generates a random string.
  * 
  * options
@@ -116,8 +159,8 @@ var NumberBlueprint = Blueprint.extend({
 
   generate: function() {
 
-    var min = (_.isUndefined(this.options.min)) ? 0 : this.options.min;
-    var max = (_.isUndefined(this.options.max)) ? 100 : this.options.max;
+    var min = (_.isUndefined(this.options) || _.isUndefined(this.options.min)) ? 0 : this.options.min;
+    var max = (_.isUndefined(this.options) || _.isUndefined(this.options.max)) ? 100 : this.options.max;
 
     var range = max - min;
 
@@ -186,6 +229,15 @@ var testBlueprint = {
       },
       "sentence": {
         "type": "sentence"
+      },
+      "array": {
+        "type": "array",
+        "options": {
+          "child": {
+            "type": "number"
+          },
+          "count": 2
+        }
       }
     }
   }
