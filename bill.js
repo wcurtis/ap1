@@ -1,6 +1,7 @@
 
-console.log('start');
+console.log('START\n');
 
+var Faker = require('Faker');
 GLOBAL._ = require('underscore');
 GLOBAL.clah = require('clah');
 Class = clah.Class;
@@ -15,11 +16,17 @@ var BlueprintFactory = Class.extend({
     // var className = type + 'Blueprint';
     // var blueprint = new className(options);
 
-    if (type == "object") {
-      return new ObjectBlueprint(options);
+    switch(type) {
+      case 'object':
+        return new ObjectBlueprint(options);
+      case 'string':
+        return new StringBlueprint(options);
+      case 'fullName':
+        return new FullNameBlueprint(options);
+      default:
+        throw new TypeError("Invalid blueprintJson, type '" + type + "' not recognized");    
     }
 
-    throw new TypeError("Invalid blueprintJson, type '" + type + "' not recognized");    
   }
 
 });
@@ -72,7 +79,15 @@ var ObjectBlueprint = Blueprint.extend({
 var StringBlueprint = Blueprint.extend({
 
   generate: function() {
-    return 'mystring';
+    return Faker.Name.findName();
+  }
+
+});
+
+var FullNameBlueprint = StringBlueprint.extend({
+
+  generate: function() {
+    return Faker.Name.findName();
   }
 
 });
@@ -88,14 +103,19 @@ var blueprint = {
   }
 };
 
+var bString = {
+  "type": "fullName"
+};
 
 var factory = new BlueprintFactory();
 
 var obj = factory.create(blueprint);
 // var obj = new ObjectBlueprint(blueprint.options);
 
-obj.print();
+var str = factory.create(bString);
+
+str.print();
 
 
  
-console.log('end');
+console.log('\nEND');
