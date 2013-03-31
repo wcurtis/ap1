@@ -21,6 +21,8 @@ var BlueprintFactory = Class.extend({
         return new ObjectBlueprint(options);
       case 'string':
         return new StringBlueprint(options);
+      case 'number':
+        return new NumberBlueprint(options);
       case 'fullName':
         return new FullNameBlueprint(options);
       default:
@@ -91,6 +93,29 @@ var StringBlueprint = Blueprint.extend({
 });
 
 /**
+ * Generates a random number based on blueprint.
+ * 
+ * options
+ * {
+ *   "min": 0,
+ *   "max": 100
+ * }
+ */
+var NumberBlueprint = Blueprint.extend({
+
+  generate: function() {
+
+    var min = (_.isUndefined(this.options.min)) ? 0 : this.options.min;
+    var max = (_.isUndefined(this.options.max)) ? 100 : this.options.max;
+
+    var range = max - min;
+
+    return Math.floor(min + (Math.random() * range));
+  }
+
+});
+
+/**
  * Generates a random full name
  */
 var FullNameBlueprint = StringBlueprint.extend({
@@ -115,13 +140,24 @@ var personBlueprint = {
   }
 };
 
-var bString = {
-  "type": "fullName"
+var testBlueprint = {
+  "type": "object",
+  "options": {
+    "structure": {
+      "number": {
+        "type": "number",
+        "options": {
+          "min": 100,
+          "max": 200
+        }    
+      }
+    }
+  }
 };
-
+  
 factory = new BlueprintFactory();
 
-var obj = factory.create(personBlueprint);
+var obj = factory.create(testBlueprint);
 
 obj.print();
 
