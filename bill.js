@@ -1,6 +1,4 @@
 
-console.log('START\n');
-
 var Faker = require('Faker');
 GLOBAL._ = require('underscore');
 GLOBAL.clah = require('clah');
@@ -27,12 +25,13 @@ var BlueprintFactory = Class.extend({
         return new FullNameBlueprint(options);
       case 'phone':
         return new PhoneBlueprint(options);
+      case 'email':
+        return new EmailBlueprint(options);
       default:
         throw new TypeError("Invalid blueprintJson, type '" + type + "' not recognized");    
     }
 
   }
-
 });
 
 var Blueprint = Class.extend({
@@ -52,7 +51,6 @@ var Blueprint = Class.extend({
   print: function() {
     console.log(JSON.stringify(this.generate(), null, 2));
   }
-
 });
 
 /**
@@ -83,7 +81,6 @@ var ObjectBlueprint = Blueprint.extend({
 
     return result;
   }
-
 });
 
 var StringBlueprint = Blueprint.extend({
@@ -91,7 +88,6 @@ var StringBlueprint = Blueprint.extend({
   generate: function() {
     return Faker.Name.findName();
   }
-
 });
 
 /**
@@ -114,7 +110,6 @@ var NumberBlueprint = Blueprint.extend({
 
     return Math.floor(min + (Math.random() * range));
   }
-
 });
 
 /**
@@ -125,7 +120,6 @@ var FullNameBlueprint = StringBlueprint.extend({
   generate: function() {
     return Faker.Name.findName();
   }
-
 });
 
 /**
@@ -138,22 +132,17 @@ var PhoneBlueprint = StringBlueprint.extend({
   generate: function() {
     return Faker.PhoneNumber.phoneNumber();
   }
-
 });
 
-var personBlueprint = {
-  "type": "object",
-  "options": {
-    "structure": {
-      "name": {
-        "type": "fullName"
-      },
-      "partnerName": {
-        "type": "fullName"
-      }
-    }
+/**
+ * Generates a random email address
+ */
+var EmailBlueprint = StringBlueprint.extend({
+
+  generate: function() {
+    return Faker.Internet.email();
   }
-};
+});
 
 var testBlueprint = {
   "type": "object",
@@ -168,17 +157,16 @@ var testBlueprint = {
       },
       "phone": {
         "type": "phone"
+      },
+      "email": {
+        "type": "email"
       }
     }
   }
 };
   
-factory = new BlueprintFactory();
-
+var factory = new BlueprintFactory();
 var obj = factory.create(testBlueprint);
 
 obj.print();
 
-
- 
-console.log('\nEND');
