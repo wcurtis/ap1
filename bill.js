@@ -83,10 +83,21 @@ var ObjectBlueprint = Blueprint.extend({
   }
 });
 
+/**
+ * Generates a random string.
+ * 
+ * options
+ * {
+ *   "length": 50,    // Length of string (ignores min/max options)
+ *   "min": 1,        // Min length of string
+ *   "max": 500       // Max length of string
+ * }
+ */
 var StringBlueprint = Blueprint.extend({
 
   generate: function() {
-    return Faker.Name.findName();
+    // TODO: Generate a random string according to spec
+    return "sjE82s0qyxj3FQ22";
   }
 });
 
