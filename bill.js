@@ -65,13 +65,14 @@ var ObjectBlueprint = Blueprint.extend({
 
   generate: function() {
 
-    return this.structure;
+    var structure = this.structure;
 
-    // TODO: Iterate over object and call genearte() on children
-    var object = {};
+    var result = {};
+    _.each(structure, function(element, key) {
+      result[key] = factory.create(element).generate();
+    });
 
-    var fields = this.options.structure;
-    return 'mystring';
+    return result;
   }
 
 });
@@ -92,11 +93,14 @@ var FullNameBlueprint = StringBlueprint.extend({
 
 });
 
-var blueprint = {
+var bResource = {
   "type": "object",
   "options": {
     "structure": {
       "name": {
+        "type": "fullName"
+      },
+      "partnerName": {
         "type": "fullName"
       }
     }
@@ -107,14 +111,14 @@ var bString = {
   "type": "fullName"
 };
 
-var factory = new BlueprintFactory();
+factory = new BlueprintFactory();
 
-var obj = factory.create(blueprint);
+var obj = factory.create(bResource);
 // var obj = new ObjectBlueprint(blueprint.options);
 
-var str = factory.create(bString);
+// var str = factory.create(bString);
 
-str.print();
+obj.print();
 
 
  
