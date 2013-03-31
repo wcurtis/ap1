@@ -5,6 +5,25 @@ GLOBAL._ = require('underscore');
 GLOBAL.clah = require('clah');
 Class = clah.Class;
 
+var BlueprintFactory = Class.extend({
+
+  create: function(blueprintJson) {
+    var type = blueprintJson.type;
+    var options = blueprintJson.options;
+
+    // TOOD: Find the right syntax for this
+    // var className = type + 'Blueprint';
+    // var blueprint = new className(options);
+
+    if (type == "object") {
+      return new ObjectBlueprint(options);
+    }
+
+    throw new TypeError("Invalid blueprintJson, type '" + type + "' not recognized");    
+  }
+
+});
+
 var Blueprint = Class.extend({
 
   init: function(options) {
@@ -69,7 +88,11 @@ var blueprint = {
   }
 };
 
-var obj = new ObjectBlueprint(blueprint.options);
+
+var factory = new BlueprintFactory();
+
+var obj = factory.create(blueprint);
+// var obj = new ObjectBlueprint(blueprint.options);
 
 obj.print();
 
