@@ -5,33 +5,38 @@ GLOBAL._ = require('underscore');
 GLOBAL.clah = require('clah');
 Class = clah.Class;
 
-var Person = Class.extend({
-  init: function(isDancing){
-    this.dancing = isDancing;
+var Blueprint = Class.extend({
+
+  init: function(options) {
+    this.options = options;
   },
-  dance: function(){
-    return this.dancing;
+
+  /**
+   * Abstract function for children to implement based on their type
+   * @return a randomly generated json object based on blueprint 
+   */
+  generate: function() {
+    return {};
+  },
+
+  print: function() {
+    console.log(this.generate());
   }
-});
- 
-var Ninja = Person.extend({
-  init: function(){
-    this._super( false );
-  },
-  dance: function(){
-    // Call the inherited version of dance()
-    return this._super();
-  },
-  swingSword: function(){
-    return true;
-  }
+
 });
 
-var p = new Person(true);
-p.dance(); // => true
- 
-var n = new Ninja();
-n.dance(); // => false
-n.swingSword(); // => true
+var StringBlueprint = Blueprint.extend({
+
+  generate: function() {
+    return 'mystring';
+  }
+
+});
+
+var str = new StringBlueprint();
+str.print();
+
+
+
  
 console.log('end');
