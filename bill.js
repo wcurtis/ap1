@@ -69,6 +69,7 @@ var ObjectBlueprint = Blueprint.extend({
 
   generate: function() {
 
+    var factory = new BlueprintFactory();
     var structure = this.structure;
 
     var result = {};
@@ -100,7 +101,7 @@ var FullNameBlueprint = StringBlueprint.extend({
 
 });
 
-var bResource = {
+var personBlueprint = {
   "type": "object",
   "options": {
     "structure": {
@@ -120,10 +121,7 @@ var bString = {
 
 factory = new BlueprintFactory();
 
-var obj = factory.create(bResource);
-// var obj = new ObjectBlueprint(blueprint.options);
-
-// var str = factory.create(bString);
+var obj = factory.create(personBlueprint);
 
 obj.print();
 
