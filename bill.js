@@ -25,6 +25,8 @@ var BlueprintFactory = Class.extend({
         return new NumberBlueprint(options);
       case 'fullName':
         return new FullNameBlueprint(options);
+      case 'phone':
+        return new PhoneBlueprint(options);
       default:
         throw new TypeError("Invalid blueprintJson, type '" + type + "' not recognized");    
     }
@@ -126,6 +128,19 @@ var FullNameBlueprint = StringBlueprint.extend({
 
 });
 
+/**
+ * Generates a random phone number
+ * 
+ * TODO: Add support for a specific format
+ */
+var PhoneBlueprint = StringBlueprint.extend({
+
+  generate: function() {
+    return Faker.PhoneNumber.phoneNumber();
+  }
+
+});
+
 var personBlueprint = {
   "type": "object",
   "options": {
@@ -149,7 +164,10 @@ var testBlueprint = {
         "options": {
           "min": 100,
           "max": 200
-        }    
+        }
+      },
+      "phone": {
+        "type": "phone"
       }
     }
   }
