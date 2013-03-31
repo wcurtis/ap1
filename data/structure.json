@@ -1,0 +1,132 @@
+
+/**
+ * This is an example object for resource.structure which defines how the entity should be built.
+ * 
+ * Eg. http://ap1.io/customer
+ */ 
+{
+  "name": {
+    "type": "fullname"  // 'type' defines what kind of random value gets generated here. There are many.
+  },
+  "email": {
+    "type": "email"
+  },
+  "address": {
+    "type" : "address"  // The 'address' type actually creates a random address object with many other fields like city, state, etc
+  },
+  "phone": {
+    "type": "array",
+    "options": {
+      "element": {
+        "type": "phone"
+      },
+      "count": 2        // When within an array, this populates the phone field with two numbers
+    }
+  },
+  "created_at": {
+    "type": "timestamp",
+    "options": {
+      "min": "2000-01-01",  // Generate timestamp between min and max dates
+      "max": "2013-01-01"   // Ommit max for present day
+    }
+  }
+}
+
+/**
+ * The blueprint defines the structure and measurements of a resource.
+ * Analygous to civil blueprints where it defines shape, and dimention, 
+ * but leaves materials, color, and texture with many possible permutations
+ */
+blueprint
+  {}
+  { "type": type }
+  {
+    "type": type,
+    "options": typeOptions
+  }
+
+type
+  "object"
+  "array"
+  "number"
+  "string"
+  "boolean"
+  "null"
+  customType
+
+/**
+ * Note: Custom types can have their own server side implementation (ie. for realistic emails)
+ * but should also be able to do most things by specifying fields to apply to their parent type.
+ * 
+ * Eg. type: alphanum
+ *     extends: string
+ *     adds option { "regex": [a-9]} // TODO: Learn how to regex lol
+ */
+customType      // Note: Custom types can have their own server side implementation, but should 
+  "firstName"
+  "lastName"
+  "fullName"
+  "email"
+  "phone"
+
+objectOptions
+  {
+    "structure": structure
+  }
+
+arrayOptions
+  {
+    "child": blueprint,
+    "count": 2          // Number of elements to create in the array
+  }
+
+numberOptions
+  {
+    "min": 0,           // Minimum number
+    "max": 100          // Maximum number
+  }
+
+stringOptions
+  {
+    "length": 50,       // Length of the string
+    "min": 5,           // Min length of the string (default 0)
+    "max": 100,         // Max length of the string (default inf)
+    "charSet": "alphanum" // This can be one of [alphanum, alpha, a-z, etc] or regex (maybe use this instead of extending?)
+  }
+
+booleanOptions
+  {
+    "value": true,          // For a constant truth value
+    "probabilityTrue": 0.6  // For a variable truth value (true 60% of the time)
+  }
+
+nullOptions
+  {}
+
+structure
+  {}
+  { property }
+
+property
+  key: blueprint
+  key: blueprint, property
+
+key
+  string
+
+/**
+ * Experimental
+ */
+
+ratioOptions
+  {
+    "children": [
+      {
+        "ratio": 1,
+        "blueprint": blueprint
+      },
+      ...
+    ]
+  }
+
+
