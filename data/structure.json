@@ -32,18 +32,12 @@
   }
 }
 
-structure
-  {}
-  { property }
-
-property
-  key: field
-  key: field, property
-
-key
-  string
-
-field
+/**
+ * The blueprint defines the structure and measurements of a resource.
+ * Analygous to civil blueprints where it defines shape, and dimention, 
+ * but leaves materials, color, and texture with many possible permutations
+ */
+blueprint
   {}
   { "type": type }
   {
@@ -82,7 +76,7 @@ objectOptions
 
 arrayOptions
   {
-    "child": field,
+    "child": blueprint,
     "count": 2          // Number of elements to create in the array
   }
 
@@ -109,6 +103,17 @@ booleanOptions
 nullOptions
   {}
 
+structure
+  {}
+  { property }
+
+property
+  key: blueprint
+  key: blueprint, property
+
+key
+  string
+
 /**
  * Experimental
  */
@@ -118,7 +123,7 @@ ratioOptions
     "children": [
       {
         "ratio": 1,
-        "field": field
+        "blueprint": blueprint
       },
       ...
     ]
