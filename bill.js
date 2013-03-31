@@ -27,6 +27,8 @@ var BlueprintFactory = Class.extend({
         return new PhoneBlueprint(options);
       case 'email':
         return new EmailBlueprint(options);
+      case 'sentence':
+        return new SentenceBlueprint(options);
       default:
         throw new TypeError("Invalid blueprintJson, type '" + type + "' not recognized");    
     }
@@ -155,6 +157,16 @@ var EmailBlueprint = StringBlueprint.extend({
   }
 });
 
+/**
+ * Generates random words
+ */
+var SentenceBlueprint = StringBlueprint.extend({
+
+  generate: function() {
+    return Faker.Lorem.sentence();
+  }
+});
+
 var testBlueprint = {
   "type": "object",
   "options": {
@@ -171,6 +183,9 @@ var testBlueprint = {
       },
       "email": {
         "type": "email"
+      },
+      "sentence": {
+        "type": "sentence"
       }
     }
   }
