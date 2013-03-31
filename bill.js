@@ -25,6 +25,31 @@ var Blueprint = Class.extend({
 
 });
 
+var ObjectBlueprint = Blueprint.extend({
+
+  init: function(options) {
+    this._super(options);
+
+    if (_.isUndefined(this.options) || _.isUndefined(this.options.structure)) {
+      throw new TypeError("ObjectBlueprint requires the field 'structure'");
+    }
+
+    this.structure = this.options.structure;
+  },
+
+  generate: function() {
+
+    return this.structure;
+
+    // TODO: Iterate over object and call genearte() on children
+    var object = {};
+
+    var fields = this.options.structure;
+    return 'mystring';
+  }
+
+});
+
 var StringBlueprint = Blueprint.extend({
 
   generate: function() {
@@ -33,9 +58,20 @@ var StringBlueprint = Blueprint.extend({
 
 });
 
-var str = new StringBlueprint();
-str.print();
+var blueprint = {
+  "type": "object",
+  "options": {
+    "structure": {
+      "name": {
+        "type": "fullName"
+      }
+    }
+  }
+};
 
+var obj = new ObjectBlueprint(blueprint.options);
+
+obj.print();
 
 
  
