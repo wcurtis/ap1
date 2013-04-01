@@ -40,8 +40,19 @@ var BlueprintFactory = Class.extend({
 
 var Blueprint = Class.extend({
 
+  required: [],
+
   init: function(options) {
     this.options = options;
+
+    var self = this;
+
+    _.each(this.required, function(element) {
+      if (typeof options[element] === "undefined") {
+        // TODO: Find out how to get class name of 
+        throw new TypeError("Blueprint " + (typeof self) + " requires the field '" + element + "'");
+      }
+    });
   },
 
   /**
@@ -63,13 +74,12 @@ var Blueprint = Class.extend({
  */
 var ObjectBlueprint = Blueprint.extend({
 
+  required: [
+    'structure'
+  ],
+
   init: function(options) {
     this._super(options);
-
-    if (_.isUndefined(this.options) || _.isUndefined(this.options.structure)) {
-      throw new TypeError("ObjectBlueprint requires the field 'structure'");
-    }
-
     this.structure = this.options.structure;
   },
 
@@ -98,13 +108,12 @@ var ObjectBlueprint = Blueprint.extend({
  */
 var ArrayBlueprint = Blueprint.extend({
 
+  required: [
+    'child'
+  ],
+
   init: function(options) {
     this._super(options);
-
-    if (_.isUndefined(this.options) || _.isUndefined(this.options.child)) {
-      throw new TypeError("ObjectBlueprint requires the field 'child'");
-    }
-
     this.child = this.options.child;
   },
 
